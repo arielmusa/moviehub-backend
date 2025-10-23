@@ -34,7 +34,6 @@ public class Movie {
 
     private String image;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Timestamp created_at;
     
     private Timestamp updated_at;
