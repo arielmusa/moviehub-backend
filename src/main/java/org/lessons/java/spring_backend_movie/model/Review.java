@@ -2,12 +2,15 @@ package org.lessons.java.spring_backend_movie.model;
 
 import java.security.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -36,6 +39,11 @@ public class Review {
     
     private Timestamp updated_at;
 
+    @ManyToOne
+    @JoinColumn(name = "movie_id", nullable = false)
+    @JsonBackReference
+    private Movie movie;
+      
 
     public Integer getId() {
         return this.id;
@@ -85,6 +93,13 @@ public class Review {
         this.updated_at = updated_at;
     }
 
-      
+    public Movie getMovie() {
+        return this.movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
 
 }

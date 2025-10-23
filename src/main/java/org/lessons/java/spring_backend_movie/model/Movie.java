@@ -1,12 +1,14 @@
 package org.lessons.java.spring_backend_movie.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +39,9 @@ public class Movie {
     private Timestamp created_at;
     
     private Timestamp updated_at;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Review> reviews;
 
 
     public Integer getId() {
@@ -109,6 +114,15 @@ public class Movie {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
+    }
+
+
+    public List<Review> getReviews() {
+        return this.reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 
