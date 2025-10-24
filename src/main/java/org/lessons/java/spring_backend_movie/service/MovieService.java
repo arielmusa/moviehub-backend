@@ -27,8 +27,8 @@ public class MovieService {
         return movieRepository.findById(id);
     }
 
-    public List<Movie> findByName(String name){
-        return movieRepository.findByNameContainingIgnoreCase(name);
+    public List<Movie> findByTitle(String title){
+        return movieRepository.findByTitleContainingIgnoreCase(title);
     }
 
     public Movie saveMovie(Movie movie){

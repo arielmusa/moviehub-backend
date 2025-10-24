@@ -21,15 +21,15 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Integer id;
 
-    @NotBlank(message = "Movie nave is mandatory")
-    private String name;
+    @NotBlank(message = "Movie title is mandatory")
+    private String title;
 
     private String director;
 
     private String genre;
 
     @Min(value = 1900)
-    private int year;
+    private int release_year;
 
     @Lob
     private String description;
@@ -52,12 +52,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDirector() {
@@ -77,11 +77,11 @@ public class Movie {
     }
 
     public int getYear() {
-        return this.year;
+        return this.release_year;
     }
 
     public void setYear(int year) {
-        this.year = year;
+        this.release_year = year;
     }
 
     public String getDescription() {
