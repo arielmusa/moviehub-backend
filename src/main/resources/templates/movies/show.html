@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Movies</title>
+    <th:block th:replace="~{fragments/bootstrap :: bootstrap}"> </th:block>
+  </head>
+  <body>
+    <div class="container">
+      <div th:object="${movie}" class="text-bg-light p-5 rounded-3 my-5">
+        <h2 th:text="*{title}"></h2>
+        <p class="m-0">Director: [[*{director}]]</p>
+        <span class="badge text-bg-primary">[[*{genre}]]</span>
+        <p class="py-2">[[*{description}]]</p>
+        <div class="d-flex gap-2">
+          <a th:href="@{{id}/edit(id=*{id})}" class="btn btn-primary"
+            >Edit movie</a
+          >
+          <form
+            th:action="@{/movies/{id}/delete(id=*{id})}"
+            method="post"
+            th:object="${movie}"
+          >
+            <button class="btn btn-danger" type="submit">Delete movie</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
