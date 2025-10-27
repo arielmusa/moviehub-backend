@@ -3,6 +3,9 @@ package org.lessons.java.spring_backend_movie.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "movies")
@@ -24,20 +28,29 @@ public class Movie {
     @NotBlank(message = "Movie title is mandatory")
     private String title;
 
+    @NotBlank(message = "Movie director is mandatory")
     private String director;
 
+    @NotBlank(message = "Movie genre is mandatory")
     private String genre;
 
     @Min(value = 1900)
+    @NotNull(message = "Movie release year is mandandatory")
     private int release_year;
 
     @Lob
+    @NotBlank(message = "Movie description is mandatory")
     private String description;
 
+    @NotBlank(message = "Movie image is mandatory")
     private String image;
 
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private Timestamp created_at;
     
+    @UpdateTimestamp
+    @Column(name = "updated_at")
     private Timestamp updated_at;
 
     @OneToMany(mappedBy = "movie")
@@ -76,13 +89,15 @@ public class Movie {
         this.genre = genre;
     }
 
-    public int getYear() {
+
+    public int getRelease_year() {
         return this.release_year;
     }
 
-    public void setYear(int year) {
-        this.release_year = year;
+    public void setRelease_year(int release_year) {
+        this.release_year = release_year;
     }
+    
 
     public String getDescription() {
         return this.description;
