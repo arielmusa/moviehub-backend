@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Movies</title>
+    <th:block th:replace="~{fragments/bootstrap :: bootstrap}"> </th:block>
+  </head>
+  <body>
+    <div class="container">
+      <form
+        class="row g-3 p-5 bg-success-subtle rounded-2 mt-5"
+        method="post"
+        th:action="@{/movies/{id}/edit(id=${movie.id})}"
+        th:object="${movie}"
+      >
+        <h1>Edit movie</h1>
+        <div class="col-6">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            th:field="*{title}"
+            required
+          />
+        </div>
+        <div class="col-6">
+          <label for="director" class="form-label">Director</label>
+          <input
+            type="text"
+            id="director"
+            class="form-control"
+            th:field="*{director}"
+            required
+          />
+        </div>
+        <div class="col-6">
+          <label for="genre" class="form-label">Genre</label>
+          <input
+            type="text"
+            id="genre"
+            class="form-control"
+            th:field="*{genre}"
+            required
+          />
+        </div>
+        <div class="col-6">
+          <label for="release_year" class="form-label">Release year</label>
+          <input
+            type="number"
+            min="1900"
+            id="release_year"
+            class="form-control"
+            th:field="*{release_year}"
+            required
+          />
+        </div>
+        <div class="col-6">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            type="text"
+            id="description"
+            class="form-control"
+            th:field="*{description}"
+            required
+          />
+        </div>
+        <div class="col-6">
+          <label for="image" class="form-label">Image</label>
+          <input
+            type="text"
+            id="image"
+            class="form-control"
+            th:field="*{image}"
+            required
+          />
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
