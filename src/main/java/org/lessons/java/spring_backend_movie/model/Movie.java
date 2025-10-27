@@ -42,7 +42,6 @@ public class Movie {
     @NotBlank(message = "Movie description is mandatory")
     private String description;
 
-    @NotBlank(message = "Movie image is mandatory")
     private String image;
 
     @CreationTimestamp

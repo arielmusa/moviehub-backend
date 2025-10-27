@@ -31,9 +31,14 @@ public class MovieService {
         return movieRepository.findByTitleContainingIgnoreCase(title);
     }
 
-    public Movie saveMovie(Movie movie){
+    public Movie create(Movie movie){
         return movieRepository.save(movie);
     }
+    
+    public Movie update(Movie movie){
+        return movieRepository.save(movie);
+    }
+    
 
     public void delete(Movie movie){
         for (Review r : movie.getReviews()) {

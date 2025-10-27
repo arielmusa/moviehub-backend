@@ -43,7 +43,7 @@ public class MovieController {
     public String store(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) return "movies/create";
         
-        movieService.saveMovie(movie);
+        movieService.create(movie);
         return "redirect:/movies";
     }
 
@@ -57,7 +57,7 @@ public class MovieController {
     public String update(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, @PathVariable int id) {
         if (bindingResult.hasErrors()) return "movies/edit";
         
-        movieService.saveMovie(movie);
+        movieService.update(movie);
         return "redirect:/movies/" + id;
     }
     
