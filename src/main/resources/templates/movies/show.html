@@ -16,13 +16,34 @@
           <a th:href="@{{id}/edit(id=*{id})}" class="btn btn-primary"
             >Edit movie</a
           >
-          <form
-            th:action="@{/movies/{id}/delete(id=*{id})}"
-            method="post"
-            th:object="${movie}"
-          >
+          <form th:action="@{/movies/{id}/delete(id=*{id})}" method="post">
             <button class="btn btn-danger" type="submit">Delete movie</button>
           </form>
+        </div>
+      </div>
+      <div th:if="${movie.reviews.size() > 0}" class="row g-3">
+        <div
+          th:each="review : ${movie.reviews}"
+          th:object="${review}"
+          class="col-6"
+        >
+          <div class="text-bg-light p-4 rounded-3 h-100">
+            <h2 th:text="*{name}"></h2>
+            <p class="m-0">Vote: [[*{vote}]]</p>
+            <p class="py-2">[[*{description}]]</p>
+            <div class="d-flex gap-2">
+              <!-- <a
+                th:href="@{/reviews/{id}/edit(id=*{id})}"
+                class="btn btn-primary"
+                >Edit review</a
+              > -->
+              <form th:action="@{/reviews/{id}/delete(id=*{id})}" method="post">
+                <button class="btn btn-danger" type="submit">
+                  Delete review
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
