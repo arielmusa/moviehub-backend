@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Movies</title>
+    <th:block th:replace="~{fragments/bootstrap :: bootstrap}"> </th:block>
+  </head>
+  <body>
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between py-3">
+        <h1>Movies list</h1>
+        <div>
+          <a th:href="@{/movies/create}" class="btn btn-primary"
+            >Add new movie</a
+          >
+        </div>
+      </div>
+      <div>
+        <table class="table">
+          <thead class="table-dark">
+            <th>#</th>
+            <th>Title</th>
+            <th>Director</th>
+            <th>Genre</th>
+            <th>Release year</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr th:each="movie : ${movies}" th:object="${movie}">
+              <td>[[*{id}]]</td>
+              <td>[[*{title}]]</td>
+              <td>[[*{director}]]</td>
+              <td>[[*{genre}]]</td>
+              <td>[[*{release_year}]]</td>
+              <td class="d-flex justify-content-center gap-2">
+                <a
+                  class="btn btn btn-primary"
+                  th:href="@{movies/{id}(id=*{id})}"
+                  >></a
+                >
+                <form
+                  th:action="@{/movies/{id}/delete(id=*{id})}"
+                  method="post"
+                  th:object="${movie}"
+                >
+                  <button class="btn btn-danger" type="submit">X</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
