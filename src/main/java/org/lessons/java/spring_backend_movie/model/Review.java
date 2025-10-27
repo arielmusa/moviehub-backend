@@ -1,9 +1,14 @@
 package org.lessons.java.spring_backend_movie.model;
 
-import java.security.Timestamp;
+
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +20,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "reviews")
@@ -27,7 +33,7 @@ public class Review {
     @NotBlank (message = "Name is mandatory")
     private String name;
 
-    @NotBlank
+    @NotNull
     @Min(value = 0)
     @Max(value = 5)
     private int vote;
@@ -35,8 +41,11 @@ public class Review {
     @Lob
     private String description;
 
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
     
+    @UpdateTimestamp
     private Timestamp updated_at;
 
     @ManyToOne
