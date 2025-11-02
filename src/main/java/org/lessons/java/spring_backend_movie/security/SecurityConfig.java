@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,12 +22,16 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .authorizeHttpRequests(requests -> requests
+        .requestMatchers("/movies/create", "/movies/edit/**").hasAuthority("ADMIN")
+        .requestMatchers(HttpMethod.POST, "/movies/**").hasAuthority("ADMIN")
+        .requestMatchers("/reviews", "/reviews/**").hasAuthority("ADMIN")
+        .requestMatchers("/movies", "/movies/**").hasAnyAuthority("USER", "ADMIN")
         .requestMatchers("/**").permitAll())
-        .formLogin(Customizer.withDefaults())
+        .formLogin(l -> l.defaultSuccessUrl("/movies"))
         .logout(Customizer.withDefaults())
-        .exceptionHandling(Customizer.withDefaults())
-        .cors(cors -> {});
+        .exceptionHandling(Customizer.withDefaults());
         
         return http.build();
     }
@@ -36,6 +41,7 @@ public class SecurityConfig {
 	CorsConfiguration configuration = new CorsConfiguration();
 	configuration.setAllowedOrigins(Arrays.asList("*"));
 	configuration.setAllowedMethods(Arrays.asList("*"));
+	configuration.setAllowedHeaders(Arrays.asList("*"));
 	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	source.registerCorsConfiguration("/**", configuration);
 	return source;
