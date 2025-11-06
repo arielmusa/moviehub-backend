@@ -2,6 +2,7 @@ package org.lessons.java.spring_backend_movie.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,7 +11,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -54,6 +58,14 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
+
+    @ManyToMany()
+    @JoinTable(
+        name = "movie_category",
+        joinColumns = @JoinColumn(name = "movie_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories;
 
 
     public Integer getId() {
@@ -138,6 +150,16 @@ public class Movie {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
+
+    public Set<Category> getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
 
 
 
